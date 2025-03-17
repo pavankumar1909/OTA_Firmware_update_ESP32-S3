@@ -15,10 +15,16 @@ void loop()
   
   if (nonblocking_timerDelay(wifi_reconnection_time, 1000)) 
   {
-    check_wifi_connection();       // reconnects to wifi in case if dis-conneted
+    if(!check_wifi_connection())       // reconnects to wifi in case if dis-connected
+    {
+      reconnect_wifi();
+    }
   }
-  if (nonblocking_timerDelay(mqtt_reconnection_time, 1000)) 
+  if (nonblocking_timerDelay(mqtt_reconnection_time, 3000)) 
   {
-    check_mqtt_connection();      // reconnects to mqtt function to listen to the topic&broker
+    if(!check_mqtt_connection())      // reconnects to mqtt function to listen to the topic&broker
+    {
+      reconnect_mqtt();
+    }
   }
 }

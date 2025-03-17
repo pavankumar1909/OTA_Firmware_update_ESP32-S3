@@ -20,23 +20,17 @@ void wifi_setup()
 
 void reconnect_wifi()
 {
-  if (nonblocking_timerDelay(wifi_reconnection_time, 1000)) 
-  {
     WiFi.reconnect();
-    if (WiFi.status() == WL_CONNECTED)
-    {
-      Serial.println("Wifi Reconnected");
-    }
-  }
 }
 
-void check_wifi_connection()
+bool check_wifi_connection()
 {
   // Keep checking the connection
     if (WiFi.status() != WL_CONNECTED) 
     {
-        Serial.println("Wi-Fi Disconnected! Reconnecting...");
-        reconnect_wifi();
-        
+        Serial.println("Wi-Fi Disconnected!");
+        return 0;
     }
+    else{
+      return 1;}
 }
