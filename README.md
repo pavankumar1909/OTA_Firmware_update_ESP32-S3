@@ -15,9 +15,3 @@ This project implements **Over-the-Air (OTA) firmware updates** for ESP32 using 
 - MQTT Broker (e.g., Mosquitto, HiveMQ)
 - HTTP Server for `.bin` firmware updates
 
-## Installation 🔧
-
-### 1️⃣ **Clone Repository**
-```sh
-git clone https://github.com/YOUR_USERNAME/ESP32_OTA_MQTT.git
-cd ESP32_OTA_MQTT
