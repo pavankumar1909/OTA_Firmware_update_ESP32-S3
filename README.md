@@ -52,8 +52,8 @@ Send the OTA update URL via MQTT:
 mosquitto_pub -h YOUR_MQTT_BROKER -t "ota/update" -m "http://YOUR_PC_IP:8080/firmware.bin"
 ```
 or 
-```use sample python scripts to publish to the topics
-```
+***use sample python scripts to publish to the topics***
+
 ## Troubleshooting 🛠️
 - If WiFi disconnects, the ESP32 **automatically reconnects**.
 - OTA update fails? Check:
