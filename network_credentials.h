@@ -7,7 +7,7 @@ const char* password = "pavan0109";  //replace with your wifi password
 
 //mqtt credentials
 const char* mqtt_server = "test.mosquitto.org";      //  MQTT brokerIP
-const char* topic = "pavantest/topic";               // subscribing topic
+const char* topic = "ESP32/ota/update";               // subscribing topic
 const char* progress_topic = "pavandevice/progress"; // publishing topic
 const char* mqtt_client_id = "ESP32_PAVAN_KUMAR";    // mqtt client name(ESP32-S3)
 
