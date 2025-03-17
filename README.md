@@ -2,20 +2,37 @@
 
 This project implements **Over-the-Air (OTA) firmware updates** for ESP32 using **MQTT and HTTP**.
 
-## Features
+## Features:
 - 🔹 WiFi & MQTT Auto-Reconnect
 - 🔹 OTA firmware updates via HTTP
 - 🔹 Publishes progress updates to MQTT
 - 🔹 Ensures non-blocking execution
 - 🔹 Rolls back if the update fails
 
-## Requirements
+## Requirements:
 - ESP32 Board
 - WiFi Connection
 - MQTT Broker (e.g., Mosquitto, HiveMQ)
 - HTTP Server for `.bin` firmware updates
 
-## Installation
+## Prerequisites:
+ - Add
+     ```
+        https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+        https://dl.espressif.com/dl/package_esp32_index.json
+     ```
+  In Arduino IDE preferences option at Additional Board Manager urls. To flash code into esp32.
+  
+ - Install all necessary libraries and Board packages.
+    🔹 **#include <WiFi.h>**
+    🔹 **#include <PubSubClient.h>**
+    🔹 **#include <HTTPClient.h>**
+    🔹 **#include <Update.h>**
+    
+ - Select **ESP32-S3** board at Board Manager (choose your custom ESP32 board version as this code was developed for generic esp32 board).
+ 
+ 
+## Installation:
 
 ### 1️⃣ **Clone Repository**
 ```sh
@@ -52,9 +69,9 @@ Send the OTA update URL via MQTT:
 mosquitto_pub -h YOUR_MQTT_BROKER -t "ota/update" -m "http://YOUR_PC_IP:8080/firmware.bin"
 ```
 or 
-***use sample python scripts to publish to the topics***
-
-## Troubleshooting
+```use sample python scripts to publish to the topics
+```
+## Troubleshooting 🛠️
 - If WiFi disconnects, the ESP32 **automatically reconnects**.
 - OTA update fails? Check:
   - MQTT broker is running.
