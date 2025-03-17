@@ -11,12 +11,29 @@ This project implements an Over-the-Air (OTA) update system for ESP32 using MQTT
 - **Error Handling**: Handles connection failures and rollback mechanisms.
 
 ## Modules
-1. **Wi-Fi Connection**: Establishes and maintains connectivity.
-2. **MQTT Communication**: Connects to the MQTT broker and subscribes to update topics.
-3. **Firmware Download**: Fetches the firmware file over HTTP.
-4. **OTA Execution**: Writes the firmware update to the ESP32’s flash memory.
-5. **Progress Updates**: Publishes update progress to an MQTT topic.
-6. **Error Handling**: Detects and logs failures, implements rollback.
+1. **OTA_FirmwareUpdates_ESP32-S3**: 
+     **.** It handles the WiFi and MQTT connections and their workflow.
+     **.** Initialises WiFi& MQTT conncetion at **setup** function.
+     **.** Checks the both WiFi and MQTT connection status every second and Reconnects if they lost connection in **non-blocking** way. 
+2. **WiFiManager**: 
+     **.** Establishes and maintains WiFI connectivity using **wifi_setup** function.
+     **.** Also handles Wifi status checking and Reconnection functions.
+3. **MQTTClient**: 
+     **.** Establishes and maintains MQTT connectivity to **Mosiquitto** server(you can use your custom server).
+     **.** MQTT broker subscribes to **ESP32/ota/update** topic to get firmware update request in http link format.
+     **.** Puslishes the status messages to the client.
+     **.** Also handles MQTT status checking and Reconnection functions.
+4. **OTAHandler**:
+     **.** Writes the firmware update to the ESP32’s flash memory over HTTP requests on top of MQTT.
+     **.** Sends firmware in chuncks.
+     **.** Publishes MQTT messages about firmware update status.
+5. **network_credentials.h**:
+     **.** Contains wifi username & password details (use your credentials).
+     **.** And MQTT broker,topic, client names (use your custom credentials).
+6. **headers.h**: 
+     **.** included all necessary header files.
+     **.** Contains **nonblockingtimerdelay()** function definition. 
+
 
 ## Flowchart
 ```mermaid
@@ -29,7 +46,7 @@ graph TD;
     F --> G[Perform OTA Update];
     G -->|Success| H[Restart ESP32];
     G -->|Failure| I[Rollback & Log Error];
-    I --> J[Retry or Notify via MQTT];
+    I -->|then| J[Retry or Notify via MQTT];
 ```
 
 ## Error Handling
@@ -37,12 +54,5 @@ graph TD;
 - **MQTT Disconnection**: Implements a non-blocking reconnection mechanism.
 - **Firmware Download Failure**: Logs error and notifies via MQTT.
 - **OTA Failure**: Rolls back to previous firmware.
-
-## Future Improvements
-- Implementing secure firmware updates with encryption.
-- Adding TLS authentication for MQTT and HTTP connections.
-- Storing logs in an external memory for debugging.
-
-This document provides an overview of the system design. Developers can refer to the source code and README for further details.
 
 
